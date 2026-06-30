@@ -4,6 +4,7 @@ import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Auth } from './src/auth/auth.entity';
 import { Role } from './src/role/role.entity';
+import { User } from './src/user/user.entity';
 
 config();
 
@@ -14,7 +15,7 @@ const dataSource = new DataSource({
   username: process.env.DB_USERNAME || 'root',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_DATABASE || 'ecommerce',
-  entities: [Auth, Role],
+  entities: [Auth, Role, User],
   synchronize: false,
 });
 
