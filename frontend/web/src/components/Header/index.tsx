@@ -16,6 +16,36 @@ import { formatPKR } from "@/lib/currency";
 import { getProductImageUrl } from "@/lib/api/products";
 
 
+const HIDDEN_PAGE_LINKS = new Set([
+  "shop with sidebar",
+  "shop without sidebar",
+  "error",
+  "mail success",
+]);
+
+const headerMenuData = menuData
+  .filter((menuItem) => {
+    const title = menuItem.title.trim().toLowerCase();
+    return title !== "blog" && title !== "blogs";
+  })
+  .map((menuItem) => {
+    if (
+      menuItem.title.trim().toLowerCase() !== "pages" ||
+      !menuItem.submenu
+    ) {
+      return menuItem;
+    }
+
+    return {
+      ...menuItem,
+      submenu: menuItem.submenu.filter((submenuItem) => {
+        const title = submenuItem.title.trim().toLowerCase();
+        return !HIDDEN_PAGE_LINKS.has(title);
+      }),
+    };
+  });
+
+
 const OFFLINE_CATEGORY_ITEMS = [
   { id: -1, name: "Electronics", image: "/images/categories/categories-01.png" },
   { id: -2, name: "Fashion", image: "/images/categories/categories-02.png" },
@@ -435,7 +465,7 @@ const Header = () => {
               {/* <!-- Main Nav Start --> */}
               <nav>
                 <ul className="flex xl:items-center flex-col xl:flex-row gap-5 xl:gap-6">
-                  {menuData.map((menuItem, i) =>
+                  {headerMenuData.map((menuItem, i) =>
                     menuItem.submenu ? (
                       <Dropdown
                         key={i}
