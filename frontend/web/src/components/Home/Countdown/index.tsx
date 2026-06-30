@@ -14,21 +14,39 @@ const CounDown = ({ product }: { product?: Product }) => {
             <span className="block font-medium text-custom-1 text-blue mb-2.5">Featured Product</span>
             <h2 className="font-bold text-dark text-xl lg:text-heading-4 xl:text-heading-3 mb-3">{product.title}</h2>
             <p className="line-clamp-3">{product.description}</p>
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-6 mt-6 lg:justify-start">
-              <div className="w-full rounded-lg bg-white px-5 py-3 shadow-2 sm:w-auto">
-                <span className="block text-custom-sm">Price</span>
-                <div className="mt-1 flex flex-wrap items-center gap-2">
-                  <strong className="text-xl text-dark">{formatPKR(product.discountedPrice)}</strong>
-                  {product.discountedPrice < product.price && (
-                    <>
-                      <span className="text-custom-sm text-dark-4 line-through">{formatPKR(product.price)}</span>
-                      <span className="rounded-full bg-red/10 px-2 py-1 text-[11px] font-semibold text-red">{product.discountPercentage}% OFF</span>
-                    </>
-                  )}
+              <div className="flex flex-wrap justify-center gap-3 sm:gap-6 mt-6 lg:justify-start">
+                <div className="w-full rounded-lg bg-white px-5 py-3 text-center shadow-2 sm:w-auto lg:text-left">
+                  <span className="block text-custom-sm">Price</span>
+
+                  <div className="mt-1 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+                    <strong className="text-xl text-dark">
+                      {formatPKR(product.discountedPrice)}
+                    </strong>
+
+                    {product.discountedPrice < product.price && (
+                      <>
+                        <span className="text-custom-sm text-dark-4 line-through">
+                          {formatPKR(product.price)}
+                        </span>
+
+                        <span className="rounded-full bg-red/10 px-2 py-1 text-[11px] font-semibold text-red">
+                          {product.discountPercentage}% OFF
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                <div className="w-full rounded-lg bg-white px-5 py-3 text-center shadow-2 sm:w-auto lg:text-left">
+                  <span className="block text-custom-sm">Availability</span>
+
+                  <strong className="block text-xl text-dark">
+                    {product.stock > 0
+                      ? `${product.stock} in stock`
+                      : "Out of stock"}
+                  </strong>
                 </div>
               </div>
-              <div className="w-full rounded-lg bg-white shadow-2 px-5 py-3 sm:w-auto"><span className="block text-custom-sm">Availability</span><strong className="text-xl text-dark">{product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}</strong></div>
-            </div>
             <Link href={`/shop-details?id=${product.id}`} className="inline-flex font-medium text-custom-sm text-white bg-blue py-3 px-9.5 rounded-md hover:bg-blue-dark mt-7.5">Check it Out!</Link>
           </div>
           <Image src="/images/countdown/countdown-bg.png" alt="" className="hidden lg:block absolute right-0 bottom-0 -z-1" width={737} height={482} />
