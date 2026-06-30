@@ -3,10 +3,14 @@
 import { useCallback, useMemo, useRef } from "react";
 import { Swiper, SwiperSlide, type SwiperRef } from "swiper/react";
 import "swiper/css";
+
 import SingleItem from "./SingleItem";
 import { Product } from "@/types/product";
 import { Category } from "@/types/category";
-import { getUploadedImageUrl, type ApiCategoryItem } from "@/lib/api/products";
+import {
+  getUploadedImageUrl,
+  type ApiCategoryItem,
+} from "@/lib/api/products";
 
 const Categories = ({
   categories,
@@ -42,9 +46,36 @@ const Categories = ({
       products:
         category.productCount ??
         products.filter((product) => product.category === category.name).length,
-      href: `/shop-with-sidebar?category=${encodeURIComponent(category.name)}`,
+      href: `/shop-with-sidebar?category=${encodeURIComponent(
+        category.name,
+      )}`,
     }));
   }, [categories, categoryItems, products]);
+
+  /*
+   * Swiper loop mode needs more slides than the maximum number of
+   * visible slides. The desktop layout displays up to seven slides,
+   * so the items are repeated until there are at least fourteen.
+   */
+  const loopItems = useMemo(() => {
+    if (items.length === 0) {
+      return [];
+    }
+
+    const minimumSlides = 14;
+    const repeatedItems: Array<Category & { loopKey: string }> = [];
+
+    while (repeatedItems.length < minimumSlides) {
+      items.forEach((item, index) => {
+        repeatedItems.push({
+          ...item,
+          loopKey: `${item.id}-${repeatedItems.length}-${index}`,
+        });
+      });
+    }
+
+    return repeatedItems;
+  }, [items]);
 
   const handlePrev = useCallback(() => {
     sliderRef.current?.swiper?.slidePrev();
@@ -54,15 +85,17 @@ const Categories = ({
     sliderRef.current?.swiper?.slideNext();
   }, []);
 
-  if (!loading && items.length === 0) return null;
+  if (!loading && items.length === 0) {
+    return null;
+  }
 
   return (
     <section className="overflow-hidden pt-17.5">
-      <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0 pb-15 border-b border-gray-3">
+      <div className="mx-auto w-full max-w-[1170px] border-b border-gray-3 px-4 pb-15 sm:px-8 xl:px-0">
         <div className="categories-carousel common-carousel">
           <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <span className="flex items-center gap-2.5 font-medium text-dark mb-1.5">
+              <span className="mb-1.5 flex items-center gap-2.5 font-medium text-dark">
                 <svg
                   width="20"
                   height="20"
@@ -76,6 +109,7 @@ const Categories = ({
                     stroke="#3C50E0"
                     strokeWidth="1.5"
                   />
+
                   <circle
                     cx="7.17245"
                     cy="7.39917"
@@ -85,9 +119,11 @@ const Categories = ({
                     strokeWidth="1.5"
                   />
                 </svg>
+
                 Categories
               </span>
-              <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
+
+              <h2 className="text-xl font-semibold text-dark xl:text-heading-5">
                 Browse by Category
               </h2>
             </div>
@@ -97,7 +133,7 @@ const Categories = ({
                 type="button"
                 onClick={handlePrev}
                 aria-label="Show previous categories"
-                className="group flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-gray-3 bg-white text-blue shadow-sm transition hover:border-blue hover:bg-blue hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2"
+                className="group flex h-10 w-10 items-center justify-center rounded-full border border-gray-3 bg-white text-blue shadow-sm transition hover:border-blue hover:bg-blue hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2 sm:h-11 sm:w-11"
               >
                 <svg
                   width="20"
@@ -122,7 +158,7 @@ const Categories = ({
                 type="button"
                 onClick={handleNext}
                 aria-label="Show next categories"
-                className="group flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-gray-3 bg-white text-blue shadow-sm transition hover:border-blue hover:bg-blue hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2"
+                className="group flex h-10 w-10 items-center justify-center rounded-full border border-gray-3 bg-white text-blue shadow-sm transition hover:border-blue hover:bg-blue hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2 sm:h-11 sm:w-11"
               >
                 <svg
                   width="20"
@@ -146,17 +182,22 @@ const Categories = ({
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-6">
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-7">
               {Array.from({ length: 7 }).map((_, index) => (
-                <div key={index} className="animate-pulse flex flex-col items-center">
-                  <div className="w-32 h-32 rounded-full bg-gray-2 mb-4" />
-                  <div className="w-24 h-4 rounded bg-gray-2" />
+                <div
+                  key={index}
+                  className="flex animate-pulse flex-col items-center"
+                >
+                  <div className="mb-4 h-32 w-32 rounded-full bg-gray-2" />
+                  <div className="h-4 w-24 rounded bg-gray-2" />
                 </div>
               ))}
             </div>
           ) : (
             <Swiper
               ref={sliderRef}
+              loop={loopItems.length > 1}
+              loopAdditionalSlides={loopItems.length}
               slidesPerView={2}
               slidesPerGroup={1}
               spaceBetween={16}
@@ -164,17 +205,35 @@ const Categories = ({
               allowTouchMove
               simulateTouch
               grabCursor
-              watchOverflow
+              watchOverflow={false}
+              resistance
+              resistanceRatio={0.85}
+              threshold={5}
               breakpoints={{
-                480: { slidesPerView: 2.5, spaceBetween: 18 },
-                640: { slidesPerView: 3, spaceBetween: 20 },
-                768: { slidesPerView: 4, spaceBetween: 20 },
-                1024: { slidesPerView: 6, spaceBetween: 20 },
-                1280: { slidesPerView: 7, spaceBetween: 20 },
+                480: {
+                  slidesPerView: 2.5,
+                  spaceBetween: 18,
+                },
+                640: {
+                  slidesPerView: 3,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 4,
+                  spaceBetween: 20,
+                },
+                1024: {
+                  slidesPerView: 6,
+                  spaceBetween: 20,
+                },
+                1280: {
+                  slidesPerView: 7,
+                  spaceBetween: 20,
+                },
               }}
             >
-              {items.map((item) => (
-                <SwiperSlide key={item.id}>
+              {loopItems.map((item) => (
+                <SwiperSlide key={item.loopKey}>
                   <SingleItem item={item} />
                 </SwiperSlide>
               ))}
