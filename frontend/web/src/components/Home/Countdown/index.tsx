@@ -10,11 +10,11 @@ const CounDown = ({ product }: { product?: Product }) => {
     <section className="overflow-hidden py-20">
       <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
         <div className="relative z-1 flex min-h-0 flex-col items-stretch overflow-hidden rounded-lg bg-[#D0E9F3] p-4 sm:p-7.5 lg:min-h-[420px] lg:flex-row lg:items-center lg:p-10 xl:p-15">
-          <div className="w-full relative z-10 lg:max-w-[480px]">
+          <div className="w-full relative z-10 text-center lg:max-w-[480px] lg:text-left">
             <span className="block font-medium text-custom-1 text-blue mb-2.5">Featured Product</span>
             <h2 className="font-bold text-dark text-xl lg:text-heading-4 xl:text-heading-3 mb-3">{product.title}</h2>
             <p className="line-clamp-3">{product.description}</p>
-            <div className="flex flex-wrap gap-3 sm:gap-6 mt-6">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-6 mt-6 lg:justify-start">
               <div className="w-full rounded-lg bg-white px-5 py-3 shadow-2 sm:w-auto">
                 <span className="block text-custom-sm">Price</span>
                 <div className="mt-1 flex flex-wrap items-center gap-2">

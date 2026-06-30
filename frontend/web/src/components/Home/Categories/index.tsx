@@ -161,8 +161,9 @@ const Categories = ({
               slidesPerGroup={1}
               spaceBetween={16}
               speed={450}
-              allowTouchMove={false}
-              simulateTouch={false}
+              allowTouchMove
+              simulateTouch
+              grabCursor
               watchOverflow
               breakpoints={{
                 480: { slidesPerView: 2.5, spaceBetween: 18 },
