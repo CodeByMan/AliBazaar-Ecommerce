@@ -1,0 +1,8 @@
+<svg width="1600" height="160" viewBox="0 0 1600 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="160" fill="#1C274C"/>
+  <circle cx="120" cy="10" r="170" fill="#3C50E0" fill-opacity=".45"/>
+  <circle cx="1480" cy="150" r="210" fill="#F23030" fill-opacity=".24"/>
+  <path d="M0 120C240 65 380 150 650 90C970 20 1130 135 1600 55V160H0V120Z" fill="#3C50E0" fill-opacity=".2"/>
+  <text x="800" y="72" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="34" font-weight="700">AliBazaar Offers, Events &amp; Discounts</text>
+  <text x="800" y="112" text-anchor="middle" fill="#E1E8FF" font-family="Arial, sans-serif" font-size="21">Your responsive advertisement banner space</text>
+</svg>
