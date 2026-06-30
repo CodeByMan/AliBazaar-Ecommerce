@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import { DataSource } from 'typeorm';
 import { Category } from './src/category/category.entity';
 import { Product } from './src/product/product.entity';
+import { ProductImage } from './src/product/product-image.entity';
 
 config();
 
@@ -13,7 +14,7 @@ const dataSource = new DataSource({
   username: process.env.DB_USERNAME || 'root',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_DATABASE || 'ecommerce',
-  entities: [Product, Category],
+  entities: [Product, Category, ProductImage],
   synchronize: false,
 });
 
