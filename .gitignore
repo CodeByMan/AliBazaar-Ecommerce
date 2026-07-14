@@ -1,39 +1,52 @@
 # ============================================================
-# AliBazaar monorepo: NestJS + Next.js + Vite dashboard
-# Place this file at the repository root.
+# AliBazaar monorepo
+# NestJS API + Next.js storefront + React/Vite admin dashboard
 # ============================================================
 
 # Dependencies
 **/node_modules/
 .pnp/
 .pnp.js
+.pnp.cjs
 
-# Build outputs
+# Production builds and framework outputs
 **/dist/
+**/build/
 **/.next/
 **/out/
-**/build/
 **/.turbo/
 **/.vercel/
+**/.netlify/
 
-# Test and coverage outputs
+# Test outputs and reports
 **/coverage/
 **/.nyc_output/
 **/test-results/
 **/playwright-report/
+**/cypress/screenshots/
+**/cypress/videos/
 junit.xml
 
-# TypeScript, ESLint, and framework caches
+# TypeScript, ESLint, bundler, and tool caches
 **/*.tsbuildinfo
 **/.eslintcache
 **/.cache/
 **/.npm-cache/
+**/.parcel-cache/
+**/.vite/
 
 # Environment files and secrets
 **/.env
 **/.env.*
 !**/.env.example
 !**/.env.*.example
+
+# Local runtime uploads
+# Preserve only source-controlled fallback assets.
+backend/uploads/*
+!backend/uploads/defaults/
+!backend/uploads/defaults/category-placeholder.svg
+!backend/uploads/defaults/user-avatar.svg
 
 # Logs
 logs/
@@ -45,12 +58,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Runtime-generated uploads
-# Keep only the two source-controlled default placeholders.
-backend/uploads/*
-!backend/uploads/defaults/
-!backend/uploads/defaults/category-placeholder.svg
-!backend/uploads/defaults/user-avatar.svg
+# Runtime and process files
+*.pid
+*.pid.lock
+*.seed
+*.pidseed
+report.*.json
 
 # Temporary files
 **/.temp/
@@ -61,20 +74,25 @@ backend/uploads/*
 *.swo
 *~
 
-# Process and diagnostic files
-*.pid
-*.pid.lock
-*.seed
-report.*.json
-
-# Local databases, dumps, and backups
+# Local databases, exports, dumps, and backups
 *.sqlite
 *.sqlite3
 *.db
 *.dump
 *.bak
+*.sql
 *.sql.gz
+*.csv.bak
 backups/
+
+# Keys, certificates, and credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
 
 # IDE and editor settings
 .vscode/
@@ -84,25 +102,38 @@ backups/
 *.njsproj
 *.sln
 *.sublime-workspace
+*.sublime-project
+*.code-workspace
 *.launch
 .settings/
 .project
 .classpath
 .c9/
 
-# OS-generated files
+# Operating-system files
 .DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 
-# Keys and certificates
-*.pem
-*.key
-*.p12
-*.pfx
-
-# Local project archives
+# Local archives and packaged releases
 *.zip
 *.rar
 *.7z
+*.tar
+*.tar.gz
+*.tgz
+
+# Optional package-manager files not used by this npm repository
+.yarn/
+.pnpm-store/
+
+# Miscellaneous local-only files
+*.local
