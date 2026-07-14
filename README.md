@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🛍️ AliBazaar
+# 🛍️ AliBazaar - Ecommerce Website
 
 ### Full-Stack E-Commerce Platform for the Pakistani Market
 
@@ -709,8 +709,6 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 <div align="center">
-
-Built and maintained by **Muhammad Ali Nawaz**.
 
 ⭐ Star the repository if you find the project useful.
 
