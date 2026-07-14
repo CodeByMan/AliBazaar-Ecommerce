@@ -28,8 +28,6 @@ A modular e-commerce application built with a **Next.js customer storefront**, a
 
 Customers can register, browse and search products, manage carts and wishlists, apply coupons, complete checkout, track orders, manage their profiles, and submit verified reviews. Administrators can manage products, categories, users, roles, coupons, reviews, orders, and order status transitions.
 
-> **Architecture note:** This repository is not a traditional MERN project because it uses **MySQL instead of MongoDB** and **NestJS instead of a plain Express server**.
-
 ---
 
 ## ✨ Core Features
@@ -92,6 +90,26 @@ Customers can register, browse and search products, manage carts and wishlists, 
 - Shipment records and delivery estimates
 - Coupon redemption tracking and limits
 - Unit tests for core services, controllers, guards, and DTOs
+
+---
+
+## 🖼️ Application Screenshots
+
+| Application Preloader |
+|---|
+| ![AliBazaar Application Preloader](docs/screenshots/preloader.png) |
+
+| Homepage | Admin Dashboard |
+| --- | --- |
+| ![AliBazaar homepage](docs/screenshots/Homepage.png) | ![AliBazaar admin dashboard](docs/screenshots/dashboard.png) |
+
+| Product View | Product Details |
+| --- | --- |
+| ![AliBazaar product catalog](docs/screenshots/product_view.png) | ![AliBazaar product details](docs/screenshots/product_detail.png) |
+
+| Wishlist | Shopping Cart  |
+| --- | --- |
+| ![AliBazaar wishlist](docs/screenshots/wishlist.png) | ![AliBazaar shopping cart](docs/screenshots/cart.png) |
 
 ---
 
@@ -255,8 +273,8 @@ The repository contains three independent Node.js applications. Install and run 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/AliBazaar.git
-cd AliBazaar
+git clone https://github.com/CodeByMan/AliBazaar-Ecommerce.git
+cd AliBazaar-Ecommerce
 ```
 
 ### 2. Create the MySQL Database
@@ -676,81 +694,11 @@ Before opening a pull request, run the linters in all three applications.
 
 ---
 
-## 🚢 Deployment Guidance
-
-### Storefront
-
-The Next.js application can be deployed to Vercel or another Node.js-compatible platform. Configure all storefront environment variables in the hosting dashboard.
-
-### Admin Dashboard
-
-The Vite dashboard includes a `vercel.json` rewrite for client-side routing and can be deployed to Vercel, Netlify, or any static host.
-
-### Backend
-
-Deploy the NestJS API to a persistent Node.js hosting service such as Railway, Render, Fly.io, AWS, Azure, or a VPS. The backend requires:
-
-- A reachable MySQL database
-- Persistent or external file storage
-- Production CORS origins
-- A strong JWT secret
-- HTTPS
-- Stripe and SMTP secrets when those integrations are enabled
-
-### Production Uploads
-
-The current backend stores uploaded files locally under `backend/uploads`. Many serverless hosts use temporary filesystems. For production, replace local runtime uploads with durable object storage such as Amazon S3, Cloudinary, or another managed storage provider.
-
----
-
-## 🔒 Security Checklist
-
-Before production deployment:
-
-- Replace the example JWT secret.
-- Replace the default administrator password.
-- Use HTTPS for the API and both frontends.
-- Restrict `CORS_ORIGINS` to real application domains.
-- Keep `DB_SYNCHRONIZE=false` and use migrations.
-- Use Stripe test mode before switching to live credentials.
-- Store secrets only in the hosting provider's environment settings.
-- Use a dedicated least-privilege MySQL user.
-- Use durable, validated object storage for uploads.
-- Review session-cookie behavior when frontends and API use different domains.
-- Never commit `.env`, private keys, database dumps, or generated uploads.
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository.
-2. Create a feature branch:
-
-   ```bash
-   git checkout -b feature/your-feature
-   ```
-
-3. Commit your changes:
-
-   ```bash
-   git commit -m "feat: describe your change"
-   ```
-
-4. Push the branch:
-
-   ```bash
-   git push origin feature/your-feature
-   ```
-
-5. Open a pull request.
-
----
 
 ## 👨‍💻 Author
 
 **Muhammad Ali Nawaz**  
 Full-Stack Software Developer  
-Email: `muhammadalinawaz.dev@gmail.com`
 
 ---
 
